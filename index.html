@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventum Modul-AIR Green Comfort | Preworxs</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://www.preworxs.nl/themes/custom/preworxs/images/preworxs-logo.svg" alt="Preworxs" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="logo-text" style="display:none;">PREWORXS</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Product Viewer Section -->
+        <section class="product-viewer">
+            <!-- Navigation buttons on the sides of the viewport -->
+            <button class="carousel-btn prev" onclick="prevImage()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            
+            <div class="image-carousel">
+                <div class="product-image-container">
+                    <img id="productImage" src="PNG/01.IMG_3107.png" alt="Inventum Modul-AIR Green Comfort">
+                </div>
+            </div>
+            
+            <button class="carousel-btn next" onclick="nextImage()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+            
+            <div class="carousel-dots">
+                <span class="dot active" onclick="goToImage(0)"></span>
+                <span class="dot" onclick="goToImage(1)"></span>
+                <span class="dot" onclick="goToImage(2)"></span>
+                <span class="dot" onclick="goToImage(3)"></span>
+                <span class="dot" onclick="goToImage(4)"></span>
+                <span class="dot" onclick="goToImage(5)"></span>
+                <span class="dot" onclick="goToImage(6)"></span>
+                <span class="dot" onclick="goToImage(7)"></span>
+            </div>
+        </section>
+
+        <!-- Product Configuration Section -->
+        <section class="product-config">
+            <h1 class="product-title">Inventum skid</h1>
+            
+            <!-- Specs -->
+            <div class="specs-row">
+                <div class="spec-item">
+                    <span class="spec-value">1.6</span>
+                    <span class="spec-unit">kW</span>
+                    <span class="spec-label">Vermogen</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-value">5.1</span>
+                    <span class="spec-unit">COP</span>
+                    <span class="spec-label">Efficiëntie</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-value" id="specDrinkwater">100</span>
+                    <span class="spec-unit">L</span>
+                    <span class="spec-label">Drinkwater</span>
+                </div>
+            </div>
+
+            <!-- Model Selection -->
+            <div class="config-section">
+                <div class="option-buttons">
+                    <button class="option-btn" data-option="model" data-value="standard" onclick="selectOption('model', 'standard', this)">
+                        <span class="option-name">Modul-AIR</span>
+                        <span class="option-price">€12,000.-</span>
+                    </button>
+                    <button class="option-btn active" data-option="model" data-value="greencomfort" onclick="selectOption('model', 'greencomfort', this)">
+                        <span class="option-name">Modul-AIR & Green comfort</span>
+                        <span class="option-price">€14,000.-</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Liters Drinkwater -->
+            <div class="config-section">
+                <h3 class="config-label">Liters drinkwater</h3>
+                <div class="toggle-buttons">
+                    <button class="toggle-btn active" data-option="liters" data-value="100" onclick="selectOption('liters', '100', this)">100</button>
+                    <button class="toggle-btn" data-option="liters" data-value="150" onclick="selectOption('liters', '150', this)">150</button>
+                </div>
+            </div>
+
+            <!-- Uiteinden leidingen -->
+            <div class="config-section">
+                <h3 class="config-label">Uiteinden leidingen</h3>
+                <div class="toggle-buttons">
+                    <button class="toggle-btn" data-option="side" data-value="links" onclick="selectOption('side', 'links', this)">Links</button>
+                    <button class="toggle-btn active" data-option="side" data-value="rechts" onclick="selectOption('side', 'rechts', this)">Rechts</button>
+                </div>
+            </div>
+
+            <!-- Quantity Input -->
+            <div class="config-section">
+                <h3 class="config-label">Aantal</h3>
+                <div class="quantity-input-wrapper">
+                    <input type="number" id="quantityInput" class="quantity-input" value="1" min="1" max="999" onchange="updateQuantity(this.value)" oninput="updateQuantity(this.value)">
+                </div>
+            </div>
+
+            <!-- Add to Cart Button -->
+            <div class="config-section">
+                <button class="add-to-cart-btn" onclick="addToCart()">Toevoegen aan bestelling</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Fixed Bottom Bar -->
+    <footer class="purchase-bar">
+        <div class="purchase-container">
+            <!-- Cart Summary on the left -->
+            <div class="cart-summary" id="cartSummary">
+                <h4>Bestelling overzicht:</h4>
+                <div id="cartItems" class="cart-items">
+                    <p class="empty-cart">Nog geen producten toegevoegd</p>
+                </div>
+            </div>
+            
+            <!-- Price and Order button on the right -->
+            <div class="purchase-section">
+                <div class="price-section">
+                    <span class="total-price" id="totalPrice">€0.-</span>
+                    <span class="price-label">Totaalprijs</span>
+                </div>
+                <button class="purchase-btn" onclick="openOrderModal()">Bestel nu</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeOrderModal()">&times;</button>
+            <h2>Bestelling plaatsen</h2>
+            <div class="order-summary">
+                <h3>Uw bestelling:</h3>
+                <div id="modalCartItems"></div>
+                <p class="summary-total" id="summaryTotal"></p>
+            </div>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label for="email">E-mailadres *</label>
+                    <input type="email" id="email" name="email" required placeholder="uw@bedrijf.nl">
+                </div>
+                <div class="form-group">
+                    <label for="company">Bedrijfsnaam</label>
+                    <input type="text" id="company" name="company" placeholder="Uw bedrijfsnaam">
+                </div>
+                <div class="form-group">
+                    <label for="name">Contactpersoon</label>
+                    <input type="text" id="name" name="name" placeholder="Uw naam">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefoonnummer</label>
+                    <input type="tel" id="phone" name="phone" placeholder="06-12345678">
+                </div>
+                <button type="submit" class="submit-btn">Bestelling verzenden</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <svg class="success-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <h2>Bedankt voor uw bestelling!</h2>
+            <p>Wij nemen zo snel mogelijk contact met u op.</p>
+            <button class="submit-btn" onclick="closeSuccessModal()">Sluiten</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
